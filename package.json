@@ -1,0 +1,25 @@
+{
+  "name": "configy",
+  "version": "0.0.1-alpha",
+  "description": "This package enable you to generate you configs using template json files according to your enviorments and use them in your application.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonsor/configy.git"
+  },
+  "keywords": [
+    "config",
+    "generator",
+    "json",
+    "enviorment"
+  ],
+  "author": "Wasif Farooq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sonsor/configy/issues"
+  },
+  "homepage": "https://github.com/sonsor/configy#readme"
+}
