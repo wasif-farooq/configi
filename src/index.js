@@ -8,9 +8,9 @@ class Config
         this.init();
     }
 
-    get(path) {
+    get(path = '') {
 
-        if (!path || path === "") {
+        if (!path || path === '') {
             return this.configs;
         }
 

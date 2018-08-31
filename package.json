@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/sonsor/configy/issues"
   },
-  "homepage": "https://github.com/sonsor/configy#readme"
+  "homepage": "https://github.com/sonsor/configy#readme",
+  "bin": {
+    "configy": "./src/cli/cli.js"
+  }
 }
