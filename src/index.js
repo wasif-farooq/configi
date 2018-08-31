@@ -10,6 +10,23 @@ class Config
 
     get(path) {
 
+        if (!path || path === "") {
+            return this.configs;
+        }
+
+        let  parts = path.split('.');
+        let value = this.configs;
+        do {
+
+            let property = parts.shift();
+            if (typeof value[property] === 'undefined') {
+                throw new Error('the config path ${path} you trying to get is not exists');
+            }
+
+            value = value[property];
+
+        } while (parts.length > 0);
+        return value;
     }
 
     init() {
