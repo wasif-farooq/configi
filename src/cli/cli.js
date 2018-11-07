@@ -1,24 +1,12 @@
 #!/usr/bin/env node
 const path = require('path');
-const read = require('./lib/read');
+const { Generator } = require('./lib/generator');
 const params = process.argv.slice(2);
-const source = params[0];
+const source = path.join(path.resolve(params[0]),'.properties');
+const env = process.env.NODE_ENV || 'development';
+const destination = path.join(path.dirname(source), 'config', 'config.' + env + '.json');
 
-read(path.resolve(source), { path: true, namespaces:true }, function(err, data) {
-    if (err) {
-        console.error(err);
-    }
-
-    console.log(data);
-})
-
-//var stdio = require('stdio');
-//console.log(process.stdin);
-/*var ops = process.stdin.getopt({
-    'check': {key: 'c', args: 2, description: 'What this option means'},
-    'map': {key: 'm', description: 'Another description'},
-    'kaka': {args: 1, mandatory: true},
-    'ooo': {key: 'o'}
+const generator = new Generator(source, destination);
+generator.on('finish', function() {
+    console.log('Done');
 });
-
-console.log(ops);*/
