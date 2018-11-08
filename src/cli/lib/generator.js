@@ -60,7 +60,7 @@ class  Generator extends EventEmitter
     }
 
     transform(data) {
-        let regex  = /{{([a-zA-Z_.]*\.[a-zA-Z_]*)}}/gi;
+        let regex = new RegExp('{{(.*?)}}', 'g');
         let matches = [...new Set(data.match(regex))]; 
 
         for (let i in matches) {

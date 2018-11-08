@@ -15,11 +15,10 @@ function flat(data) {
 
             var path = prev ? prev + '.' + key: key;
 
-            if (
-                !isArray &&
-                isObject &&
-                Object.keys(val).length
+            if (isArray ||
+                (isObject && Object.keys(val).length)
             ) {
+                output[path] = val;
                 return convert(val, path);
             }
 

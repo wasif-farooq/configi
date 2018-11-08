@@ -1,4 +1,5 @@
 const fs = require('fs');
+const flat = require('./cli/lib/flat');
 
 class Parser
 {
@@ -24,7 +25,7 @@ class Parser
             throw new Error('Config file ' + file + ' cannot be read');
         }
 
-        return content;
+        return flat(content);
 
     }
 
