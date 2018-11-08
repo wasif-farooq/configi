@@ -6,11 +6,12 @@ const fs = require('fs');
 
 class  Generator extends EventEmitter
 {
-    constructor(source, destination)
+    constructor(properties, template, output)
     {
         super();
-        this.source = source;
-        this.destination = destination;
+        this.properties = properties;
+        this.template = template;
+        this.output = output;
 
         this.readable = {};
         this.writeable = {};
@@ -29,11 +30,12 @@ class  Generator extends EventEmitter
     init() {
         this.once('load', this.load.bind(this));
         this.on('read', this.read.bind(this));
+        this.on('start', this.start.bind(this));
         this.on('transform', this.transform.bind(this));
     }
 
     load() {
-        read(this.source, this.options, this.onLoad.bind(this));
+        read(this.properties, this.options, this.onLoad.bind(this));
     }
 
     onLoad(err, data) {
@@ -46,10 +48,37 @@ class  Generator extends EventEmitter
     }
 
     read() {
-        let dirname = path.dirname(this.source);
-        let source = path.join(dirname, 'config', 'config.template.json');
-        this.writeable = fs.createWriteStream(this.destination, 'utf-8');
-        this.readable = fs.createReadStream(source, 'utf-8');
+
+        if (!fs.existsSync(this.template)) {
+            this.emit('error', 'The template file not exists or not readable');
+        }
+
+        if (!fs.existsSync(this.output)) {
+
+            fs.writeFile(this.output, '', (err) => {
+                if (err) {
+                    this.emit('error', 'There is error creating file. please check directory permission');
+                }
+                this.emit('start');
+            });
+
+        } else {
+
+            fs.access(this.output, fs.constants.W_OK, (err) => {
+                if(err){
+                    this.emit('error', 'Write Permission denied on destination file');
+                    return;
+                }
+
+                this.emit('start');
+            });
+
+        }
+    }
+
+    start() {
+        this.writeable = fs.createWriteStream(this.output, 'utf-8');
+        this.readable = fs.createReadStream(this.template, 'utf-8');
 
         this.readable.on('data', this.onRead.bind(this));
         this.readable.on('close', this.finish.bind(this));
