@@ -1,12 +1,23 @@
 const fs = require('fs');
 const flat = require('./cli/lib/flat');
 
+/**
+ * 
+ */
 class Parser
 {
+    /**
+     * 
+     * @param {*} file 
+     */
     constructor(file) {
         this.parse(file);
     }
 
+    /**
+     * 
+     * @param {*} file 
+     */
     read(file) {
 
         try {
@@ -29,6 +40,10 @@ class Parser
 
     }
 
+    /**
+     * 
+     * @param {*} file 
+     */
     parse(file) {
         let content = this.read(file);
 
@@ -42,3 +57,16 @@ class Parser
 
 let parser = new Parser();
 module.exports.parse = parser.parse;
+
+/**
+ * var lineReader = require('readline').createInterface({
+    input: require('fs').createReadStream('./te.txt')
+  });
+  
+  lineReader.on('line', function (line) {
+    //console.log('Line from file:', line);
+    const regex = new RegExp('(^[a-zA-Z0-9][a-zA-Z0-9._]*?)\=(.*)');
+    
+    console.log(line.match(regex));
+  });*/
+ */

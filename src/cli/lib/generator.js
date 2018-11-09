@@ -4,8 +4,17 @@ const flat = require('.//flat');
 const path = require('path');
 const fs = require('fs');
 
+/**
+ * 
+ */
 class  Generator extends EventEmitter
 {
+    /**
+     * 
+     * @param {*} properties 
+     * @param {*} template 
+     * @param {*} output 
+     */
     constructor(properties, template, output)
     {
         super();
@@ -27,6 +36,9 @@ class  Generator extends EventEmitter
         this.emit('load');
     }
 
+    /**
+     * 
+     */
     init() {
         this.once('load', this.load.bind(this));
         this.on('read', this.read.bind(this));
@@ -34,10 +46,18 @@ class  Generator extends EventEmitter
         this.on('transform', this.transform.bind(this));
     }
 
+    /**
+     * 
+     */
     load() {
         read(this.properties, this.options, this.onLoad.bind(this));
     }
 
+    /**
+     * 
+     * @param {*} err 
+     * @param {*} data 
+     */
     onLoad(err, data) {
         if (err) {
             console.error(err);
@@ -47,6 +67,9 @@ class  Generator extends EventEmitter
         this.emit('read');
     }
 
+    /**
+     * 
+     */
     read() {
 
         if (!fs.existsSync(this.template)) {
@@ -76,6 +99,9 @@ class  Generator extends EventEmitter
         }
     }
 
+    /**
+     * 
+     */
     start() {
         this.writeable = fs.createWriteStream(this.output, 'utf-8');
         this.readable = fs.createReadStream(this.template, 'utf-8');
@@ -84,10 +110,18 @@ class  Generator extends EventEmitter
         this.readable.on('close', this.finish.bind(this));
     }
 
+    /**
+     * 
+     * @param {*} chunk 
+     */
     onRead(chunk) {
         this.emit('transform', chunk);
     }
 
+    /**
+     * 
+     * @param {*} data 
+     */
     transform(data) {
         let regex = new RegExp('{{(.*?)}}', 'g');
         let matches = [...new Set(data.match(regex))]; 
@@ -101,6 +135,9 @@ class  Generator extends EventEmitter
         this.writeable.write(data);
     }
 
+    /**
+     * 
+     */
     finish() {
         this.emit('finish');
     }

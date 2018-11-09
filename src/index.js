@@ -1,7 +1,7 @@
 const { join } = require('path');
 const { parse } require('./parser');
 
-class Config
+class Configy
 {
     constructor() {
         this.configs = {};
@@ -32,3 +32,4 @@ class Config
         this.configs = parse(file);
     }
 }
+module.exports = new Config();
