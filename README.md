@@ -20,7 +20,10 @@ db.host=localhost
 you can use the property as merge field in you config.template.json file like below
 ```
 {
-   "name": "{{db.name}}"
+   "db": {
+       "host": "{{db.host}}",
+       "port": "{{db.port}}"
+   }
 }
 ```
 
@@ -30,10 +33,12 @@ you need to require the package
 `const configy = require('configy')
 ```
 and then need to get the config path like this
+
 ```
 configy.get('db.name')
 ```
-or
+this will return the value of db.name in our case its a string and
 ```
  configy.get('db')
  ```
+ this will return the you the value of "db" key that in our case is a object.
