@@ -30,15 +30,19 @@ you can use the property as merge field in you config.template.json file like be
 ### How to use use config in you project
 you need to require the package
 ```
-`const configy = require('configy')
+`const configy = require('configy');
 ```
 and then need to get the config path like this
 
 ```
-configy.get('db.name')
+configy.get('db.name');
 ```
 this will return the value of db.name in our case its a string and
 ```
- configy.get('db')
+ configy.get('db');
  ```
  this will return the you the value of "db" key that in our case is a object.
+
+ ### License
+ This project is licensed under the MIT License.
+
