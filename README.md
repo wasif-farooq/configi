@@ -18,14 +18,22 @@ db.host=localhost
 
 #### Define Template File
 you can use the property as merge field in you config.template.json file like below
-`{`
-`   "name": "{{db.name}}"`
-`}`
+```
+{
+   "name": "{{db.name}}"
+}
+```
 
 ### How to use use config in you project
 you need to require the package
-`const configy = require('configy')`
+```
+`const configy = require('configy')
+```
 and then need to get the config path like this
-`configy.get('db.name')`
+```
+configy.get('db.name')
+```
 or
-`configy.get('db')`
+```
+ configy.get('db')
+ ```
