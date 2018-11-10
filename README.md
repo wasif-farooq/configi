@@ -5,7 +5,7 @@ This package enable to seperate you development envioment config with production
 For configure this you need to install the package and create 3 files that mentioned below.
 
 ### Instalation
-`npm install configi --save`
+`npm install configi -g`
 
 ### File To Create
 - .properties
