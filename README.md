@@ -11,7 +11,7 @@ For configure this you need to install the package and create 3 files that menti
 - .properties
 - .properties.sample
 - config
-- - config.template.json
+    - config.template.json
 
 add .properties file in .gitignore if you are using the git.
 
