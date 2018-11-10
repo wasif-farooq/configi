@@ -17,7 +17,7 @@ add .properties file in .gitignore if you are using the git.
 
 #### Command to generate files
 ```
-configy direcotory_path ot .properties files enviorment
+configi direcotory_path ot .properties files enviorment
 ```
 - enviorment either be dev or prod if you not pass this argument it will get the NODE_ENV and if that is not set it take dev by default.
 
