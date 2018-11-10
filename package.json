@@ -1,5 +1,5 @@
 {
-  "name": "configy",
+  "name": "configi",
   "version": "0.0.1",
   "description": "This package enable you to generate you configs using template json files according to your enviorments and use them in your application.",
   "main": "src/index.js",
@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/sonsor/configy#readme",
   "bin": {
-    "configy": "./src/cli/cli.js"
+    "configi": "./src/cli/cli.js"
   }
 }

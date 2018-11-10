@@ -1,11 +1,11 @@
-# Configy
+# Configi
 This package enable to seperate you development envioment config with production enviorment configs. So every enviorment have there seperate properties file. This also provide the command to generate configs that you can run on building process of your project.
 
 ## Getting Started
 For configure this you need to install the package and create 3 files that mentioned below.
 
 ### Instalation
-`npm install configy --save`
+`npm install configi --save`
 
 ### File To Create
 - .properties
