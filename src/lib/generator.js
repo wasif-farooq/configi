@@ -1,5 +1,5 @@
 const EventEmitter = require('events');
-const read = require('.//read');
+const read = require('.//properties-parser');
 const flat = require('.//flat');
 const path = require('path');
 const fs = require('fs');
@@ -39,18 +39,21 @@ class  Generator extends EventEmitter
     /**
      * 
      */
-    init() {
+    init()
+    {
         this.once('load', this.load.bind(this));
         this.on('read', this.read.bind(this));
         this.on('start', this.start.bind(this));
         this.on('transform', this.transform.bind(this));
+        this.on('error', this.error.bind(this));
     }
 
     /**
      * 
      */
-    load() {
-        read(this.properties, this.options, this.onLoad.bind(this));
+    load(err, data)
+    {
+        read(this.properties, this.onLoad.bind(this));
     }
 
     /**
@@ -58,19 +61,21 @@ class  Generator extends EventEmitter
      * @param {*} err 
      * @param {*} data 
      */
-    onLoad(err, data) {
+    onLoad(err, data)
+    {
         if (err) {
-            console.error(err);
+            this.emit('error', err);
         }
 
-        this.fields = flat(data);
-        this.emit('read');
+        this.fields = data;
+        this.emit('start');
     }
 
     /**
      * 
      */
-    read() {
+    start(err, data)
+    {
 
         if (!fs.existsSync(this.template)) {
             this.emit('error', 'The template file not exists or not readable');
@@ -82,7 +87,7 @@ class  Generator extends EventEmitter
                 if (err) {
                     this.emit('error', 'There is error creating file. please check directory permission');
                 }
-                this.emit('start');
+                this.emit('read');
             });
 
         } else {
@@ -93,7 +98,7 @@ class  Generator extends EventEmitter
                     return;
                 }
 
-                this.emit('start');
+                this.emit('read');
             });
 
         }
@@ -102,7 +107,8 @@ class  Generator extends EventEmitter
     /**
      * 
      */
-    start() {
+    read()
+    {
         this.writeable = fs.createWriteStream(this.output, 'utf-8');
         this.readable = fs.createReadStream(this.template, 'utf-8');
 
@@ -114,7 +120,8 @@ class  Generator extends EventEmitter
      * 
      * @param {*} chunk 
      */
-    onRead(chunk) {
+    onRead(chunk)
+    {
         this.emit('transform', chunk);
     }
 
@@ -122,7 +129,8 @@ class  Generator extends EventEmitter
      * 
      * @param {*} data 
      */
-    transform(data) {
+    transform(data)
+    {
         let regex = new RegExp('{{(.*?)}}', 'g');
         let matches = [...new Set(data.match(regex))]; 
 
@@ -135,10 +143,16 @@ class  Generator extends EventEmitter
         this.writeable.write(data);
     }
 
+    error(data) {
+        console.log('Error : ' + data);
+        process.exit(0);
+    }
+
     /**
      * 
      */
-    finish() {
+    finish()
+    {
         this.emit('finish');
     }
 }

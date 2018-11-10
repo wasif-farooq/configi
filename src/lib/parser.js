@@ -1,5 +1,5 @@
 const fs = require('fs');
-const flat = require('./cli/lib/flat');
+const flat = require('./flat');
 
 /**
  * 
@@ -10,7 +10,8 @@ class Parser
      * 
      * @param {*} file 
      */
-    constructor(file) {
+    constructor(file)
+    {
         this.parse(file);
     }
 
@@ -18,7 +19,8 @@ class Parser
      * 
      * @param {*} file 
      */
-    read(file) {
+    read(file)
+    {
 
         try {
             let stat = fs.statSync(file);
@@ -36,7 +38,7 @@ class Parser
             throw new Error('Config file ' + file + ' cannot be read');
         }
 
-        return flat(content);
+        return content;
 
     }
 
@@ -44,8 +46,9 @@ class Parser
      * 
      * @param {*} file 
      */
-    parse(file) {
-        let content = this.read(file);
+    parse(file)
+    {
+        let content = flat(this.read(file));
 
         try {
             let obj = JSON.parse(content);
@@ -53,20 +56,11 @@ class Parser
             throw e;
         }
     }
+
+    static init()
+    {
+        return new Parser().parse;
+    }
 }
 
-let parser = new Parser();
-module.exports.parse = parser.parse;
-
-/**
- * var lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream('./te.txt')
-  });
-  
-  lineReader.on('line', function (line) {
-    //console.log('Line from file:', line);
-    const regex = new RegExp('(^[a-zA-Z0-9][a-zA-Z0-9._]*?)\=(.*)');
-    
-    console.log(line.match(regex));
-  });*/
- */
+module.exports.parse = Parser.init;

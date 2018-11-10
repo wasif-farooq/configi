@@ -1,14 +1,16 @@
 const { join } = require('path');
-const { parse } require('./parser');
+const { parse } require('./lib/parser');
 
 class Configy
 {
-    constructor() {
+    constructor()
+    {
         this.configs = {};
         this.init();
     }
 
-    get(path = '') {
+    get(path = '')
+    {
 
         if (!path || path === '') {
             return this.configs;
@@ -19,9 +21,9 @@ class Configy
         }
     }
 
-    init() {
-
-        let env = process.env.NODE_ENV || 'development';
+    init()
+    {
+        let env = process.env.NODE_ENV || 'dev';
 
         let CONFIG_DIR = configDir ||  join( process.cwd(), 'config');
         if (CONFIG_DIR.indexOf('.') === 0) {
