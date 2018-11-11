@@ -1,14 +1,26 @@
 const { join } = require('path');
 const { parse } require('./lib/parser');
 
-class Configy
+/**
+ * This is main class that handles the generated config
+ * It enable you to grab the properties value from generated json file.
+ */
+class Configi
 {
+    /**
+     * @return void
+     */
     constructor()
     {
         this.configs = {};
         this.init();
     }
 
+    /**
+     * 
+     * @param {String} path The path of a config which value you wanted to get.
+     * @return Array|String|Object
+     */
     get(path = '')
     {
 
@@ -21,6 +33,9 @@ class Configy
         }
     }
 
+    /**
+     * @return void
+     */
     init()
     {
         let env = process.env.NODE_ENV || 'dev';
@@ -34,4 +49,4 @@ class Configy
         this.configs = parse(file);
     }
 }
-module.exports = new Config();
+module.exports = new Configi();

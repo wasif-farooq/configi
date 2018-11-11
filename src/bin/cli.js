@@ -6,13 +6,14 @@ const params = process.argv.slice(2);
 /**
  * 
  */
-class Configy extends Generator
+class Configi extends Generator
 {
     /**
      * 
-     * @param {*} properties 
-     * @param {*} template 
-     * @param {*} output 
+     * @param String properties The path of .properties file
+     * @param String template The path of config template file
+     * @param String output The path of file that gona generate by code
+     * @return void
      */
     constructor(properties, template, output)
     {
@@ -21,7 +22,8 @@ class Configy extends Generator
 
     /**
      * 
-     * @param {array} params 
+     * @param Array params The cli command paramerteds
+     * @return void
      */
     static run(params)
     {
@@ -47,4 +49,4 @@ class Configy extends Generator
     }
 };
 
-Configy.run(params);
+Configi.run(params);

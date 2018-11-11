@@ -5,15 +5,17 @@ const path = require('path');
 const fs = require('fs');
 
 /**
- * 
+ * This class is used to generate the file. it grabs properties file 
+ * and template file and generate config json file according to node env
  */
 class  Generator extends EventEmitter
 {
     /**
      * 
-     * @param {*} properties 
-     * @param {*} template 
-     * @param {*} output 
+     * @param String properties The path of .properties file
+     * @param String template The path of config template file
+     * @param String output The path of file that gona generate by code
+     * @return void
      */
     constructor(properties, template, output)
     {
@@ -37,7 +39,7 @@ class  Generator extends EventEmitter
     }
 
     /**
-     * 
+     * @return void
      */
     init()
     {
@@ -49,7 +51,7 @@ class  Generator extends EventEmitter
     }
 
     /**
-     * 
+     * return void
      */
     load(err, data)
     {
@@ -58,8 +60,9 @@ class  Generator extends EventEmitter
 
     /**
      * 
-     * @param {*} err 
-     * @param {*} data 
+     * @param String err The error message if there any error in loading the properties file otherwise null
+     * @param Object data The parsed content of .properties file.
+     * @return void
      */
     onLoad(err, data)
     {
@@ -72,11 +75,10 @@ class  Generator extends EventEmitter
     }
 
     /**
-     * 
+     * @return void
      */
-    start(err, data)
+    start()
     {
-
         if (!fs.existsSync(this.template)) {
             this.emit('error', 'The template file not exists or not readable');
         }
@@ -105,7 +107,7 @@ class  Generator extends EventEmitter
     }
 
     /**
-     * 
+     * @return void
      */
     read()
     {
@@ -118,7 +120,8 @@ class  Generator extends EventEmitter
 
     /**
      * 
-     * @param {*} chunk 
+     * @param String chunk The chunk of a template file to read.
+     * @return void
      */
     onRead(chunk)
     {
@@ -127,7 +130,8 @@ class  Generator extends EventEmitter
 
     /**
      * 
-     * @param {*} data 
+     * @param String data The chunk of template data to transform the merge fields
+     * @return void
      */
     transform(data)
     {
@@ -143,13 +147,18 @@ class  Generator extends EventEmitter
         this.writeable.write(data);
     }
 
+    /**
+     * 
+     * @param String data The error message if there any error
+     * @return void
+     */
     error(data) {
         console.log('Error : ' + data);
         process.exit(0);
     }
 
     /**
-     * 
+     * @return void
      */
     finish()
     {

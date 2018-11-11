@@ -2,13 +2,15 @@ const fs = require('fs');
 const flat = require('./flat');
 
 /**
- * 
+ * This class is used to parse the config json file it validates either 
+ * file is valid json or not
  */
 class Parser
 {
     /**
      * 
-     * @param {*} file 
+     * @param String file The path of generate config file.
+     * @return void
      */
     constructor(file)
     {
@@ -17,7 +19,8 @@ class Parser
 
     /**
      * 
-     * @param {*} file 
+     * @param String file The path of generate config file.
+     * @return String
      */
     read(file)
     {
@@ -39,12 +42,12 @@ class Parser
         }
 
         return content;
-
     }
 
     /**
      * 
-     * @param {*} file 
+     * @param String file The path of generate config file.
+     * @return void
      */
     parse(file)
     {
@@ -57,6 +60,9 @@ class Parser
         }
     }
 
+    /**
+     * @return function
+     */
     static init()
     {
         return new Parser().parse;
